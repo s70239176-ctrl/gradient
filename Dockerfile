@@ -21,6 +21,7 @@ RUN grep -v "^torch" requirements.txt > /tmp/req_notorch.txt \
     && pip install --no-cache-dir -r /tmp/req_notorch.txt
 
 COPY backend/ .
+COPY start.sh .
 COPY --from=frontend-builder /frontend/dist /app/frontend/dist
 RUN mkdir -p /app/model
 RUN useradd -m appuser && chown -R appuser /app
@@ -28,4 +29,4 @@ USER appuser
 EXPOSE 8000
 
 # Shell form so $PORT is evaluated at runtime by Railway
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 2
+CMD ["/bin/sh", "/app/start.sh"]
