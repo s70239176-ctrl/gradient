@@ -29,4 +29,4 @@ USER appuser
 EXPOSE 8000
 
 # Shell form so $PORT is evaluated at runtime by Railway
-CMD ["/bin/sh", "/app/start.sh"]
+CMD ["/bin/sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT --workers 2"]
