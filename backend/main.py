@@ -150,7 +150,7 @@ async def forecast(req: ForecastRequest):
         ]
 
     # Determine data source
-    data_source = "reservoir_api" if os.getenv("RESERVOIR_API_KEY", "demo") != "demo" else "synthetic_demo"
+    data_source = "alchemy_api" if os.getenv("RESERVOIR_API_KEY", "") else "synthetic_demo"
 
     logger.info(f"Forecast for {address} in {time.time()-t0:.2f}s — {result['direction']} {result['predicted_pct_change']}%")
 
